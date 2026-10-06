@@ -1,4 +1,4 @@
-# 🚪 Anzen Smart Door Lock System
+# 🚪 D-MAX Smart Door Lock System
 
 An intelligent, real-time IoT security system featuring dual-mode authentication via **Facial Recognition (Face ID)** and **Cryptographically Secure QR Code Guest Passes**. The edge node runs on a Raspberry Pi and directly controls the solenoid door lock using the Pi's GPIO pins, all coordinated in real-time through Firebase Realtime Database with web and mobile dashboards.
 

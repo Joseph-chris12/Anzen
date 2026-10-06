@@ -13,7 +13,7 @@ import {
   RefreshCw,
   Unlock,
 } from "lucide-react";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from "@/lib/db";
 import { rtdb } from "@/lib/firebase";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { format, parseISO } from "date-fns";
@@ -192,7 +192,7 @@ export default function Dashboard() {
       {/* Typewriter greeting header */}
       <div className="mb-4 sm:mb-6 text-right flex flex-col items-end select-none">
         <span className="text-[9px] font-extrabold text-brand-terracotta tracking-widest uppercase block mb-1">
-          ANZEN SMART LABS
+          D-MAX SMART LABS
         </span>
         <h1
           className="text-2xl sm:text-3xl font-extrabold text-neutral-dark tracking-tight leading-none min-h-[1.75rem] sm:min-h-[2.25rem] flex items-center justify-end"

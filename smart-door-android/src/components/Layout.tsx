@@ -21,13 +21,13 @@ import {
   Settings
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ref, onValue, set, push, query, limitToLast, onChildAdded } from "firebase/database";
+import { ref, onValue, set, push, query, limitToLast, onChildAdded } from "@/lib/db";
 import { rtdb } from "@/lib/firebase";
 import { motion, AnimatePresence } from "motion/react";
 import { LocalNotifications } from '@capacitor/local-notifications';
 
 export default function Layout() {
-  const { signOut, user } = useAuth();
+  const { signOut, user, isGuest } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [profileModalOpen, setProfileModalOpen] = useState(false);
@@ -173,6 +173,11 @@ export default function Layout() {
             <span className="text-xs sm:text-sm font-bold text-[#3D3A38] tracking-tight whitespace-nowrap">
               {user?.email?.split('@')[0] || "dummy"}
             </span>
+            {isGuest && (
+              <span className="hidden sm:inline-flex items-center text-[9px] font-black uppercase tracking-widest text-brand-terracotta bg-brand-terracotta/10 px-2 py-0.5 rounded-full">
+                Demo
+              </span>
+            )}
           </motion.button>
 
           {/* CENTER NAVIGATION LINKS (Transition from hidden based on featuresExpanded and isMobile checks) */}
@@ -250,7 +255,7 @@ export default function Layout() {
             )}
           </AnimatePresence>
 
-          {/* MASTER TOGGLE BUTTON (ANZEN) */}
+          {/* MASTER TOGGLE BUTTON (D-MAX) */}
           <motion.button
             layout
             onClick={() => {
@@ -263,7 +268,7 @@ export default function Layout() {
               !isMobile ? "hover:bg-[#d87756] cursor-pointer select-none active:scale-95" : "cursor-default"
             )}
           >
-            <span className="font-extrabold tracking-widest text-[10px] sm:text-xs">ANZEN</span>
+            <span className="font-extrabold tracking-widest text-[10px] sm:text-xs">D-MAX</span>
             {!isMobile && (
               <motion.div
                 animate={{ rotate: featuresExpanded ? 180 : 0 }}
@@ -384,7 +389,7 @@ export default function Layout() {
                 </h2>
                 <div className="flex items-center gap-1.5 mt-1 bg-brand-sage-light px-3 py-1 rounded-full border border-brand-sage/10">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand-sage animate-pulse" />
-                  <span className="text-[10px] text-brand-sage font-extrabold tracking-wide uppercase">Connected</span>
+                  <span className="text-[10px] text-brand-sage font-extrabold tracking-wide uppercase">{isGuest ? "Demo Mode" : "Connected"}</span>
                 </div>
               </div>
 

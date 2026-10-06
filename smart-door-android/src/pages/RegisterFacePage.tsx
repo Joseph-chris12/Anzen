@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Camera, RefreshCw, Save, UserPlus, Upload, Sparkles, Smile, ShieldCheck, HelpCircle, Loader2, Check } from "lucide-react";
-import { ref as dbRef, push, set } from "firebase/database";
+import { ref as dbRef, push, set } from "@/lib/db";
 import { rtdb } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 

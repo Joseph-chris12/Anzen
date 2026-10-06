@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock, Unlock, Check, AlertTriangle } from "lucide-react";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue } from "@/lib/db";
 import { rtdb } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDoorControl } from "@/hooks/useDoorControl";

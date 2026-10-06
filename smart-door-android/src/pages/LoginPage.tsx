@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { ref, set } from "firebase/database";
+import { ref, set } from "@/lib/db";
 import { rtdb, auth } from "@/lib/firebase";
-import { Heart, Loader2, Sparkles, Lock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Heart, Loader2, Sparkles, Lock, ArrowRight, ShieldCheck, Compass } from "lucide-react";
 
 export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -14,8 +14,21 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, signInAsGuest } = useAuth();
   const navigate = useNavigate();
+
+  const handleGuest = async () => {
+    setError("");
+    setLoading(true);
+    try {
+      await signInAsGuest();
+      navigate("/");
+    } catch (err: any) {
+      setError(err.message || "Could not start the demo.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +92,7 @@ export default function LoginPage() {
             </svg>
           </div>
           <div className="space-y-1">
-            <h2 className="text-3xl font-extrabold tracking-tight text-neutral-dark">Anzen</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight text-neutral-dark">D-MAX</h2>
             <p className="text-xs text-neutral-dark/40 font-bold uppercase tracking-widest flex items-center justify-center gap-1">
               <span>Smart Home Companion</span>
             </p>
@@ -117,7 +130,7 @@ export default function LoginPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="admin@anzen.home"
+                    placeholder="admin@dmax.home"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -171,6 +184,27 @@ export default function LoginPage() {
               </div>
 
             </form>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 my-5">
+              <span className="h-px flex-1 bg-neutral-dark/8" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-dark/30">or</span>
+              <span className="h-px flex-1 bg-neutral-dark/8" />
+            </div>
+
+            {/* Guest / demo entry — explore with sample data, no account needed */}
+            <Button
+              type="button"
+              onClick={handleGuest}
+              disabled={loading}
+              className="w-full h-11 rounded-xl bg-brand-sage-light hover:bg-brand-sage text-brand-sage hover:text-white font-extrabold text-xs tracking-wider uppercase transition-all duration-300 border border-brand-sage/15 flex items-center justify-center gap-1.5"
+            >
+              <Compass className="h-4 w-4" />
+              <span>Try as Guest</span>
+            </Button>
+            <p className="text-[10px] text-neutral-dark/40 text-center mt-2 leading-relaxed">
+              Explore the full dashboard with sample data — no account or Firebase setup required.
+            </p>
           </CardContent>
 
           {/* Toggle link inside soft grey background footer */}

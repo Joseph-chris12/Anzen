@@ -26,15 +26,26 @@ export function isFirebaseConfigured(): boolean {
 }
 
 if (isFirebaseConfigured()) {
-  if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
-  } else {
-    app = getApps()[0];
+  // Initialisation is best-effort: if Firebase env vars are missing or invalid
+  // the app still boots so guests can explore in demo mode (which never touches
+  // Firebase). Real sign-in simply stays unavailable until config is provided.
+  try {
+    if (!getApps().length) {
+      app = initializeApp(firebaseConfig);
+    } else {
+      app = getApps()[0];
+    }
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    rtdb = getDatabase(app);
+  } catch (e) {
+    console.warn("[D-MAX] Firebase not initialised — demo/guest mode still works.", e);
+    // Placeholder so pages that guard with `if (!rtdb) return` still run their
+    // data effects in demo mode. The demo DB facade ignores this object and
+    // serves in-memory sample data instead; real DB calls are never made here.
+    rtdb = {} as unknown as Database;
   }
-  auth = getAuth(app);
-  db = getFirestore(app);
-  storage = getStorage(app);
-  rtdb = getDatabase(app);
 }
 
 export { app, auth, db, storage, rtdb };

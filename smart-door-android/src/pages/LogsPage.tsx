@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ref, onValue, query, limitToLast } from "firebase/database";
+import { ref, onValue, query, limitToLast } from "@/lib/db";
 import { rtdb } from "@/lib/firebase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

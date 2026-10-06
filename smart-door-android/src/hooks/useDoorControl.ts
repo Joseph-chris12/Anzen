@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { ref, push, set } from "firebase/database";
+import { ref, push, set } from "@/lib/db";
 import { rtdb } from "@/lib/firebase";
 
 type DoorAction = "open" | "close";

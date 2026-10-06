@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.smartdoor.admin',
-  appName: 'Smart Door Admin',
+  appName: 'D-MAX',
   webDir: 'dist',
   server: {
     androidScheme: 'https'
